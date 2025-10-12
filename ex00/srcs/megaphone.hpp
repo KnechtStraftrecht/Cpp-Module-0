@@ -2,5 +2,6 @@
 #define MEGAPHONE_H
 
 #include <iostream>
+#include <string>
 
 #endif
