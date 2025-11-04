@@ -6,7 +6,7 @@
 /*   By: KnechtStrafrecht <KnechtStrafrecht@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 18:34:23 by KnechtStraf       #+#    #+#             */
-/*   Updated: 2025/10/12 19:53:10 by KnechtStraf      ###   ########.fr       */
+/*   Updated: 2025/11/04 17:04:49 by KnechtStraf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,86 +15,108 @@
 
 #include <iostream>
 #include <string>
-using namespace std;
+#include "phonebook.hpp"
 
-class Phonebook {
+void	printColumnStr(std::string str);
+
+class	Contact{
+	private:
+		std::string	Secret;
+
 	public:
-		Contact	Contacts[8];
-	
-	void	Phonebook () {
-		this.CurrIndx = 0;
-		this.ContactsSaved = 0;
-	}
-	
-	void	searchContacts() {
-		string	RowTemplate;
-		string	FilledRow;
+		std::string	Name;
+		std::string	LastName;
+		std::string	Nickname;
+		std::string	Number;
 
-		RowTemplate = "|          |          |          |          |";
-		cout << "   Index    First Name  Last Name  Nickname  " << endl;
-		for (int i = 0; i < this.ContactsSaved; i++) {
-			FilledRow = RowTemplate;
-			FilledRow.replace(1, 10, i);
-			FilledRow.replace(12, 10, this.Contacts[i].FirstName);
-			FilledRow.replace(23, 10, this.Contacts[i].LastName);
-			FilledRow.replace(34, 10, this.Contacts[i].Nickname);
-			cout << FilledRow << endl
+		unsigned long	printName() {
+			std::cout << "First Name: " << this->Name;
+			return this->Name.length();
+		};
+		unsigned long	printLastName() {
+			std::cout << "Last Name: " << this->LastName;
+			return this->LastName.length();
 		}
-		cout << "Index to look up: ";
-		cin >> int indx;
-		cout << endl;
-		this.printContact(this.Contacts[indx]);
-	}
+		unsigned long	printNickname() {
+			std::cout << "Nickname: " << this->Nickname;
+			return (this->Nickname.length());
+		}
+		unsigned long	printNumber() {
+			std::cout << "Number: " << this->Number;
+			return this->Number.length();
+		}
+		unsigned long	printSecret() {
+			std::cout << "Darkest Secret: " << this->Secret;
+			return (this->Secret.length());
+		}
+		void	setName() {
+			std::cout << "Name: ";
+			std::getline(std::cin, this->Name);
+		}
+		void	setLastName() {
+			std::cout << "Last Name: ";
+			std::getline(std::cin, this->LastName);
+		}
+		void	setNickname() {
+			std::cout << "Nickname: ";
+			std::getline(std::cin, this->Nickname);
+		}
+		void	setNumber() {
+			std::cout << "Number: ";
+			std::getline(std::cin, this->Number);
+		}
+		void	setSecret() {
+			std::cout << "Secret: ";
+			std::getline(std::cin, this->Secret);
+		}
+};
 
-	void	printContact(Contact ToPrint) {
-		cout << ToPrint.FirstName << endl;
-		cout << ToPrint.LastName << endl;
-		cout << ToPrint.Nickname << endl;
-		cout << ToPrint.PhoneNumber << endl;
-		ToPrint.revealSecret;
-	}
-
-	void	addContact() {
-		Contact	newContact;
-
-		cout << "Enter first name: ";
-		getline(cin, newContact.FirstName);
-		cout << "Enter last name: "
-		getline(cin, newContact.LastName);
-		cout << "Enter nickname: ";
-		getline(cin, newContact.Nickname);
-		cout << "Enter Number: ";
-		cin >> Contact.PhoneNumber;
-		newContact.getSecret;
-		this.Contacts[CurrIndx] = newContact;
-		this.CurrIndx++;
-		if (this.ContactsSaved < 8)
-			this.ContactsSaved++;
-	}
-
+class	Phonebook{
 	private:
-		int		ContactsSaved;
-		int		CurrIndx;
-}
+		int			SaveIndex = 0;
+		Contact		Contacts[8];
 
-class Contact {
 	public:
-		string	FirstName;
-		string	LastName;
-		string	Nickname;
-		int		PhoneNumber;
-	
-	void	revealSecret() {
-		cout << this.Secret << endl;
-	}
+		void	Add() {
+			Contact	NewContact;
+			
+			NewContact.setName();
+			NewContact.setLastName();
+			NewContact.setNickname();
+			NewContact.setNumber();
+			NewContact.setSecret();
+			this->Contacts[this->SaveIndex % 8] = NewContact;
+			SaveIndex++;
+		}
+		void	Search() {
+			int	lookup;
 
-	void	getSecret() {
-		cout << "Enter Secret: ";
-		getline(cin, this.Secret);
-	}
-
-	private:
-		string	Secret;
-}
+			std::cout << " ___________________________________________\n";
+			std::cout << "|Index     |First Name|Last Name |Nickname  |\n";
+			for (int i = 0; i < 8; i++) {
+				std::cout << '|' << i << "         |";
+				printColumnStr(Contacts[i].Name);
+				printColumnStr(Contacts[i].LastName);
+				printColumnStr(Contacts[i].Nickname);
+				std::cout << '\n';
+			}
+			std::cout << " -------------------------------------------\n";
+			std::cout << "Index to look up: ";
+			std::cin >> lookup;
+			std::cin.ignore();
+			if (lookup >= 0 && lookup <= 8) {
+				Contacts[lookup].printName();
+				std::cout << '\n';
+				Contacts[lookup].printLastName();
+				std::cout << '\n';
+				Contacts[lookup].printNickname();
+				std::cout << '\n';
+				Contacts[lookup].printNumber();
+				std::cout << '\n';
+				Contacts[lookup].printSecret();
+				std::cout << '\n';
+			}
+		}
+};
 
 #endif
