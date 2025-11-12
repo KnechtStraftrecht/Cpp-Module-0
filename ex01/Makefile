@@ -2,7 +2,7 @@ NAME 	= phonebook
 
 CCP 	= g++
 
-FLAGS 	= -Wall -Wextra -Werror
+FLAGS 	= -Wall -Wextra -Werror -std=c++98
 
 INC_H 	= -I./srcs/
 

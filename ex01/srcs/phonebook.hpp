@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phonebook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: KnechtStrafrecht <KnechtStrafrecht@stud    +#+  +:+       +#+        */
+/*   By: hkullert <hkullert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 18:34:23 by KnechtStraf       #+#    #+#             */
-/*   Updated: 2025/11/04 17:04:49 by KnechtStraf      ###   ########.fr       */
+/*   Updated: 2025/11/12 21:42:44 by hkullert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ void	printColumnStr(std::string str);
 class	Contact{
 	private:
 		std::string	Secret;
-
-	public:
 		std::string	Name;
 		std::string	LastName;
 		std::string	Nickname;
 		std::string	Number;
 
+	public:
 		unsigned long	printName() {
 			std::cout << "First Name: " << this->Name;
 			return this->Name.length();
@@ -62,8 +61,12 @@ class	Contact{
 			std::getline(std::cin, this->Nickname);
 		}
 		void	setNumber() {
-			std::cout << "Number: ";
-			std::getline(std::cin, this->Number);
+			std::string	tmp;
+
+			while (this->Number) {
+				std::cout << "Number: ";
+				std::getline(std::cin, tmp);
+			}
 		}
 		void	setSecret() {
 			std::cout << "Secret: ";
@@ -79,7 +82,7 @@ class	Phonebook{
 	public:
 		void	Add() {
 			Contact	NewContact;
-			
+
 			NewContact.setName();
 			NewContact.setLastName();
 			NewContact.setNickname();
