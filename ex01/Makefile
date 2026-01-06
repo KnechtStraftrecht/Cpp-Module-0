@@ -6,7 +6,8 @@ FLAGS 	= -Wall -Wextra -Werror -std=c++98
 
 INC_H 	= -I./srcs/
 
-SRCS 	= srcs/phonebook.cpp
+SRCS 	= srcs/phonebook.cpp \
+	srcs/helper.cpp
 
 OBJS 	= $(SRCS:.cpp=.o)
 
