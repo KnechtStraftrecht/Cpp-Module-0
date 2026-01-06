@@ -6,7 +6,7 @@
 /*   By: hkullert <hkullert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 18:34:23 by KnechtStraf       #+#    #+#             */
-/*   Updated: 2026/01/06 16:04:27 by hkullert         ###   ########.fr       */
+/*   Updated: 2026/01/06 17:32:35 by hkullert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,28 +67,43 @@ class	Contact{
 		}
 		void	setName() {
 			std::cout << "Name: ";
-			std::getline(std::cin, this->Name);
-			if (this->Name.empty())
+			if (!std::getline(std::cin, this->Name))
 			{
-				std::cout << "\nExiting...\n";
+				std::cout << "Exiting...\n";
 				exit(1);
+			}
+			while (this->Name.empty()) {
+				std::cout << "Cannot be empty!\n";
+				std::cout << "Name: ";
+				if (!std::getline(std::cin, this->Name))
+				{
+					std::cout << "Exiting...\n";
+					exit(1);
+				}
 			}
 		}
 		void	setLastName() {
 			std::cout << "Last Name: ";
-			std::getline(std::cin, this->LastName);
-			if (this->LastName.empty())
+			if (!std::getline(std::cin, this->LastName))
 			{
-				std::cout << "\nExiting...\n";
+				std::cout << "Exiting...\n";
 				exit(1);
+			}
+			while (this->LastName.empty()) {
+				std::cout << "Cannot be empty!\n";
+				std::cout << "Last Name: ";
+				if (!std::getline(std::cin, this->LastName))
+				{
+					std::cout << "Exiting...\n";
+					exit(1);
+				}
 			}
 		}
 		void	setNickname() {
 			std::cout << "Nickname: ";
-			std::getline(std::cin, this->Nickname);
-			if (this->Nickname.empty())
+			if (!std::getline(std::cin, this->Nickname))
 			{
-				std::cout << "\nExiting...\n";
+				std::cout << "Exiting...\n";
 				exit(1);
 			}
 		}
@@ -96,30 +111,30 @@ class	Contact{
 			std::string	tmp;
 
 			std::cout << "Number: ";
-			std::getline(std::cin, tmp);
-			if (tmp.empty())
+			if (!std::getline(std::cin, tmp))
 			{
 				std::cout << "\nExiting...\n";
 				exit(1);
 			}
-			while (ft_checkNumber(tmp)) {
-				std::cout << "Invalid format! Please reenter!\n";
-				std::cout << "Number: ";
-				std::getline(std::cin, tmp);
+			while (ft_checkNumber(tmp) || tmp.empty()) {
 				if (tmp.empty())
-			{
-				std::cout << "\nExiting...\n";
-				exit(1);
-			}
+					std::cout << "Cannot be empty!\n";
+				else
+					std::cout << "Invalid format! Please reenter!\n";
+				std::cout << "Number: ";
+				if (!std::getline(std::cin, tmp))
+				{
+					std::cout << "\nExiting...\n";
+					exit(1);
+				}
 			}
 			this->Number = tmp;
 		}
 		void	setSecret() {
 			std::cout << "Secret: ";
-			std::getline(std::cin, this->Secret);
-			if (this->Secret.empty())
+			if (!std::getline(std::cin, this->Secret))
 			{
-				std::cout << "\nExiting...\n";
+				std::cout << "Exiting...\n";
 				exit(1);
 			}
 		}

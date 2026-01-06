@@ -6,7 +6,7 @@
 /*   By: hkullert <hkullert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 18:34:14 by KnechtStraf       #+#    #+#             */
-/*   Updated: 2025/11/12 21:43:10 by hkullert         ###   ########.fr       */
+/*   Updated: 2026/01/06 17:21:41 by hkullert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,20 @@ int	main(void) {
 	signal(SIGINT, sigIntHandler);
 	signal(SIGQUIT, sigQuitHandler);
 	std::cout << "Phonebook: ";
-	std::getline(std::cin, cmd);
+	if (!std::getline(std::cin, cmd))
+	{
+		std::cout << "Exiting...\n";
+		exit(1);
+	}
 	while (cmd != "EXIT") {
-		if (cmd.empty()) {
+		if (!cmd.empty())
+			decider(Pb, cmd);
+		std::cout << "Phonebook: ";
+		if (!std::getline(std::cin, cmd))
+		{
 			std::cout << "Exiting...\n";
 			exit(1);
 		}
-		decider(Pb, cmd);
-		std::cout << "Phonebook: ";
-		std::getline(std::cin, cmd);
 	}
 	std::cout << "All Information lost... Exiting\n";
 	return (0);
